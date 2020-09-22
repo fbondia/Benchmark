@@ -653,7 +653,7 @@
 		</profile>
 
 		<profile>
-			<id>downloadwbugscout</id>
+			<id>bugscout-download</id>
 			<properties>
 				<skipTests>true</skipTests>
 				<bugscout.agent.host>https://bugscout.iast</bugscout.agent.host>
@@ -686,7 +686,7 @@
 		</profile>
 
 		<profile>
-			<id>deploywbugscout</id>
+			<id>bugscout-execute</id>
 			<properties>
 				<skipTests>true</skipTests>
 				<bugscout.agent.location>${basedir}/tools/Bugscout/bugscout-iast-agent.jar</bugscout.agent.location>
@@ -807,6 +807,43 @@
 	</profiles>
 
 	<dependencies>
+	
+	
+	
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${version.junit5}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${version.junit5}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+			<version>${version.junit5}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>testcontainers</artifactId>
+			<version>${version.testcontainers}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>${version.testcontainers}</version>
+			<scope>test</scope>
+		</dependency>
+	
+	
+	
+	
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
@@ -1354,14 +1391,18 @@ But it might be needed for Java 10, because I get this error, that I don't get w
 	</reporting>
 
 	<properties>
-		<maven.compiler.source>1.7</maven.compiler.source>
-		<maven.compiler.target>1.7</maven.compiler.target>
+
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
 		<skipTests>false</skipTests>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.war.webxml>${basedir}/src/config/web.xml</maven.war.webxml>
 		<runenv>local</runenv>
+		
+		<version.junit5>5.6.0</version.junit5>
+		<version.testcontainers>1.14.3</version.testcontainers>
 		<version.apacheds>1.5.7</version.apacheds>
 		<version.apache-shared-ldap>0.9.19</version.apache-shared-ldap>
 		<version.exec.maven>1.6.0</version.exec.maven>

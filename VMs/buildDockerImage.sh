@@ -1,5 +1,6 @@
 # Pull in latest version of ubuntu
 docker pull ubuntu:latest
+
 # Remove any ubuntu:<none> image if it was left behind by a new version of ubunto:latest being pulled
 i=$(docker images | grep "ubuntu" | grep "<none" | awk '{print $3}')
 if [ "$i" ]

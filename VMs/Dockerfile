@@ -22,15 +22,14 @@ WORKDIR /owasp/Benchmark
 # https://bugscout.iast/bugscout/maven/io/bugscout/iast/jvm/bugscout-iast-agent/1.0.1-SNAPSHOT/
 # bugscout-iast-agent-1.0.1-SNAPSHOT.jar
 
-RUN mvn clean package cargo:run \
+RUN mvn clean package -Pbugscout-download \
 -Dbugscout.agent.host=https://bugscout.iast\
 -Dbugscout.agent.version=1.0.1-SNAPSHOT \
 -Dmaven.wagon.http.ssl.insecure=true \
 -Dmaven.wagon.http.ssl.allowall=true \
--Dmaven.wagon.http.ssl.ignore.validity.dates=true \
--Pdownloadwbugscout
+-Dmaven.wagon.http.ssl.ignore.validity.dates=true
 
-RUN mvn clean package cargo:run -Pdeploywbugscout \
+RUN mvn clean package cargo:run -Pbugscout-execute \
 -Dbugscout.agent.location=/owasp/Benchmark/tools/Bugscout/bugscout-iast-agent.jar \
 -Dbugscout.url=https://appliance/bugscout \
 -Dbugscout.source=FIRST-TEST \
@@ -38,7 +37,6 @@ RUN mvn clean package cargo:run -Pdeploywbugscout \
 -Dbugscout.username=elastic \
 -Dbugscout.password=changeme \
 -Dbugscout.rules=
-
 
 RUN useradd -d /home/bench -m -s /bin/bash bench 
 RUN echo bench:bench | chpasswd
