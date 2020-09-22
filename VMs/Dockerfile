@@ -1,6 +1,4 @@
-# This dockerfile builds a container that pulls down and runs the latest version of Benchmark
 FROM ubuntu:latest
-MAINTAINER "Dave Wichers dave.wichers@owasp.org"
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND="noninteractive" apt-get -y install tzdata
@@ -15,13 +13,19 @@ RUN apt-get install -q -y \
 
 RUN mkdir /owasp
 WORKDIR /owasp
-RUN git clone https://github.com/OWASP/benchmark
+RUN git clone https://github.com/fbondia/Benchmark
 WORKDIR /owasp/benchmark
-RUN mvn clean package cargo:install
 
-RUN useradd -d /home/bench -m -s /bin/bash bench 
-RUN echo bench:bench | chpasswd
+#RUN mvn clean package cargo:install
+#
+#RUN useradd -d /home/bench -m -s /bin/bash bench 
+#RUN echo bench:bench | chpasswd
+#
+#RUN chown -R bench /owasp/
+#ENV PATH /owasp/benchmark/:$PATH
 
-RUN chown -R bench /owasp/
-ENV PATH /owasp/benchmark/:$PATH
-
+RUN mvn clean package cargo:run \
+-Dmaven.wagon.http.ssl.insecure=true \
+-Dmaven.wagon.http.ssl.allowall=true \
+-Dmaven.wagon.http.ssl.ignore.validity.dates=true \
+-Pdeploywbugscout
