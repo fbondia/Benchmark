@@ -8,6 +8,5 @@ then
 fi
 
 # Since Docker doesn't auto delete anything, just like for the Ubunto update, delete any existing benchmark:latest image before building a new one
-docker image rm benchmark:latest
-docker build -t benchmark .
-
+docker image rm mine:5000/bugscout/owasp-benchmark:1.0
+docker build -t mine:5000/bugscout/owasp-benchmark:1.0 .
